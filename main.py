@@ -34,15 +34,16 @@ answer_list = []
 
 for station in station_list:
     target_data = list(filter(lambda item: item['station_id'] == station, qualified_data))
-    max = target_data[0]['WDSD']
-    min = target_data[0]['WDSD']
-    for measure in target_data:
-        if (measure['WDSD'] > max):
-            max = measure['WDSD']
-        elif (measure['WDSD'] < min):
-            min = measure['WDSD']
-    if (max==min): diff = 'None'
-    else: diff = str(float(max)-float(min))
+    if (len(target_data) <= 1): diff = 'None'
+    else: 
+        max = target_data[0]['WDSD']
+        min = target_data[0]['WDSD']
+        for measure in target_data:
+            if (measure['WDSD'] > max):
+                max = measure['WDSD']
+            elif (measure['WDSD'] < min):
+                min = measure['WDSD']
+        diff = str(float(max)-float(min))
     sample_list = [station, diff]
     answer_list.append(sample_list)
 #=======================================
